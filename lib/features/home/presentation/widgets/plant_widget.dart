@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:plants_project/core/utils/colors/colors.dart';
 import 'package:plants_project/core/utils/widgets/txt_style.dart';
+import 'package:plants_project/features/home/data/model/plant_model.dart';
 import 'package:plants_project/features/home/presentation/widgets/add_to_cart_widget.dart';
 
 class PlantWidget extends StatelessWidget {
-  const PlantWidget({super.key});
+  final PlantModel plant;
+  const PlantWidget({super.key, required this.plant});
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +28,13 @@ class PlantWidget extends StatelessWidget {
             Stack(
               children: [
                 Container(
+                    height: 243.h,
+                    width: 285.w,
                     decoration: BoxDecoration(
                       color: softBlue,
                       borderRadius: BorderRadius.circular(23.r),
                     ),
-                    child: Image.asset("assets/images/plant1.png")),
+                    child: Image.network(plant.plantImage)),
                 IconButton(
                     onPressed: () {},
                     icon: const Icon(
@@ -40,8 +44,8 @@ class PlantWidget extends StatelessWidget {
               ],
             ),
             SizedBox(height: 10.h),
-            const TxtStyle(
-              "The Potted Head",
+            TxtStyle(
+              plant.plantName,
               24,
               textAlignm: TextAlign.center,
               fontWeight: FontWeight.bold,
@@ -50,8 +54,8 @@ class PlantWidget extends StatelessWidget {
               padding: const EdgeInsets.only(top: 10, bottom: 18),
               child: SizedBox(
                   width: 253.w,
-                  child: const TxtStyle(
-                    "Perfect for beginners or anyone looking for an easy-to-care-for plant",
+                  child: TxtStyle(
+                    plant.plantDesc,
                     14,
                     color: darkGrey,
                     longText: true,
@@ -62,7 +66,7 @@ class PlantWidget extends StatelessWidget {
 
             //Cart
 
-            const AddToCartWidget()
+             AddToCartWidget(price: plant.plantPrice)
           ],
         ),
       ),

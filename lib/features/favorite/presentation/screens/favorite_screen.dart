@@ -4,6 +4,7 @@ import 'package:plants_project/core/utils/widgets/txt_style.dart';
 import 'package:plants_project/features/favorite/presentation/widgets/favorite_widget.dart';
 
 class FavoriteScreen extends StatelessWidget {
+
   const FavoriteScreen({super.key});
 
   @override

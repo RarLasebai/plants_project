@@ -7,7 +7,7 @@ class AuthTextField extends StatelessWidget {
   final String hint;
   final TextEditingController? controller;
   final int width;
-  final bool isNumbers, isPass, isPassField;
+  final bool isEmail, isPass, isPassField;
   final VoidCallback? onTap;
   // final VoidCallback? onChanged;
   final void Function()? suffixOnTap;
@@ -23,7 +23,7 @@ class AuthTextField extends StatelessWidget {
     required this.validator,
     this.suffixIcon = Icons.visibility_outlined,
     this.suffixOnTap,
-    this.isNumbers = false,
+    this.isEmail = false,
     this.isPass = false,
     this.isPassField = false,
     this.onTap,
@@ -49,7 +49,7 @@ class AuthTextField extends StatelessWidget {
               onChanged: onChanged,
               obscureText: isPass,
               keyboardType:
-                  isNumbers ? TextInputType.number : TextInputType.text,
+                  isEmail ? TextInputType.emailAddress : TextInputType.text,
               // inputFormatters: isPhone == true
               //     ? [
               //         LengthLimitingTextInputFormatter(8),
@@ -64,6 +64,15 @@ class AuthTextField extends StatelessWidget {
                   fontSize: 13.sp,
                   fontWeight: FontWeight.bold),
               decoration: InputDecoration(
+                suffixIcon: isPassField
+                    ? IconButton(
+                        onPressed: suffixOnTap,
+                        icon: Icon(
+                          suffixIcon,
+                          color: darkGrey,
+                        ),
+                      )
+                    : null,
                 fillColor: softGrey,
                 filled: true,
                 disabledBorder: OutlineInputBorder(

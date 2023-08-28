@@ -4,8 +4,9 @@ import 'package:plants_project/core/utils/colors/colors.dart';
 import 'package:plants_project/core/utils/widgets/txt_style.dart';
 
 class AddToCartWidget extends StatelessWidget {
+  final int price;
   final bool isDetailScreen;
-  const AddToCartWidget({super.key, this.isDetailScreen = false});
+  const AddToCartWidget({super.key, this.isDetailScreen = false, required this.price});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class AddToCartWidget extends StatelessWidget {
           const TxtStyle("  Add to Cart", 14,
               fontWeight: FontWeight.bold, color: Colors.white),
           isDetailScreen ? const Spacer() : SizedBox(width: 60.w),
-          const TxtStyle(" 50.00  ", 14,
+           TxtStyle(" $price  ", 14,
               fontWeight: FontWeight.bold, color: Colors.white),
         ],
       ),

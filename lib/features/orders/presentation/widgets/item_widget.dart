@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:plants_project/core/utils/colors/colors.dart';
 import 'package:plants_project/core/utils/widgets/txt_style.dart';
+import 'package:plants_project/features/home/data/model/cart_model.dart';
 
 class ItemWidget extends StatelessWidget {
-  const ItemWidget({super.key});
+  final CartItemModel cartItem;
+  const ItemWidget({super.key, required this.cartItem});
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +22,21 @@ class ItemWidget extends StatelessWidget {
                   width: 80.w,
                 ),
                 Positioned(
-                    left: 18,
-                    top: 6,
-                    child: Image.asset("assets/images/plant2.png")),
+                    // right: 1,
+                    // top: 4,
+                    child: Image.network(cartItem.plantImage,
+                        height: 90.h, width: 90.w)),
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 12, right: 70),
+            Padding(
+              padding: const EdgeInsets.only(left: 12, right: 70),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TxtStyle("Mini Cacti", 20, fontWeight: FontWeight.bold),
-                    TxtStyle("2 pieces", 14, color: secondaryFont)
+                    TxtStyle(cartItem.plantName, 20,
+                        fontWeight: FontWeight.bold),
+                    TxtStyle("${cartItem.quantity} pieces", 16,
+                        color: secondaryFont)
                   ]),
             ),
             Container(
@@ -40,8 +45,8 @@ class ItemWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(24.r),
                     color: Colors.white),
-                child:
-                    const TxtStyle("20.22", 16, fontWeight: FontWeight.bold)),
+                child: TxtStyle("${cartItem.price}", 16,
+                    fontWeight: FontWeight.bold)),
           ],
         ),
         const Padding(

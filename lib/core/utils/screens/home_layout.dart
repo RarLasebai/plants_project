@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:plants_project/core/app_cubit/app_cubit.dart';
 import 'package:plants_project/core/utils/colors/colors.dart';
+import 'package:plants_project/features/auth/application/auth_cubit/auth_cubit.dart';
 
 import '../../app_cubit/app_states.dart';
 
@@ -14,12 +15,14 @@ class HomeLayout extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (BuildContext context) => AppCubit()),
+        BlocProvider(
+            create: (BuildContext context) =>
+                AuthCubit()..getDataFromSharedPref()),
       ],
       child: BlocConsumer<AppCubit, AppStates>(
           listener: (context, state) {},
           builder: (context, appState) {
             AppCubit appCubit = AppCubit.get(context);
-
             return Scaffold(
               resizeToAvoidBottomInset: true,
               body: appCubit.screens[appCubit.currentIndex],
@@ -69,6 +72,9 @@ class HomeLayout extends StatelessWidget {
                               AssetImage("assets/icons/orders.png"),
                             ),
                             label: "ORDERS"),
+                            BottomNavigationBarItem(
+                            icon: Icon(Icons.person, color: primaryDark),
+                            label: "PROFILE"),
                       ],
                     ),
                   ),

@@ -3,8 +3,15 @@ import 'package:plants_project/core/utils/widgets/txt_style.dart';
 import 'package:plants_project/features/orders/presentation/widgets/status_widget.dart';
 
 class OrdersMainBar extends StatelessWidget {
-  final bool isCart;
-  const OrdersMainBar({super.key, this.isCart = false});
+  final bool isCart, isOrderDetails;
+  final int? numberOfItems;
+  final String? orderStatus;
+  const OrdersMainBar(
+      {super.key,
+      this.isCart = false,
+      this.isOrderDetails = false,
+      this.orderStatus,
+      this.numberOfItems});
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +20,10 @@ class OrdersMainBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const TxtStyle("Order No.123", 32, fontWeight: FontWeight.bold),
+          TxtStyle(isCart ? "Cart" : "Order", 32, fontWeight: FontWeight.bold),
           StatusWidget(
             isOrdersScreen: false,
-            text: isCart ? "4" : "Status",
+            text: isCart ? "$numberOfItems" : isOrderDetails ? orderStatus! : "Placing Order",
           )
         ],
       ),

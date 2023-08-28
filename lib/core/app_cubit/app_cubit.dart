@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:plants_project/features/favorite/presentation/screens/favorite_screen.dart';
 import 'package:plants_project/features/home/presentation/screens/home_screen.dart';
 import 'package:plants_project/features/orders/presentation/screens/orders_screen.dart';
+import 'package:plants_project/features/profile/presentation/screens/profile_screen.dart';
 
 import 'app_states.dart';
 
@@ -12,13 +13,15 @@ class AppCubit extends Cubit<AppStates> {
   static AppCubit get(context) => BlocProvider.of(context);
 
   //Variables
+
   //Bottom Navigation Bar
   int currentIndex = 0;
 
   List<Widget> screens = [
     const HomeScreen(),
     const FavoriteScreen(),
-    const OrdersScreen()
+    const OrdersScreen(),
+    const ProfileScreen()
   ];
 
   //Methods
@@ -27,8 +30,6 @@ class AppCubit extends Cubit<AppStates> {
     currentIndex = index;
     emit(BottomNavBarChangeScreenState());
   }
-
- 
 
   // Future signOut() async {
   //   await auth.signOut();

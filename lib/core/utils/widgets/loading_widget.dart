@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:plants_project/core/utils/colors/colors.dart';
 
 class LoadingWidget extends StatelessWidget {
-  const LoadingWidget({super.key});
+  final Color color;
+  const LoadingWidget({super.key, this.color = primary});
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(top: 20, bottom: 16),
+    return  Padding(
+      padding: const EdgeInsets.only(top: 20, bottom: 16),
       child: Center(
-        child: CircularProgressIndicator(color: primary),
+        child: CircularProgressIndicator(color: color),
       ),
     );
   }
