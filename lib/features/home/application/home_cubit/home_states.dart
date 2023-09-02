@@ -13,6 +13,14 @@ class PlantsLoadedState extends HomeStates {
 
 class PlantTypeIndexChangeState extends HomeStates {}
 
+class FavColorChangeState extends HomeStates {}
+
+class AddPlantToFavLoadingState extends HomeStates {}
+
+class RemovePlantFromFavSuccessState extends HomeStates {}
+
+class AddPlantToFavSuccessState extends HomeStates {}
+
 class HomeErrorState implements HomeStates {
   final String message;
   HomeErrorState(this.message);

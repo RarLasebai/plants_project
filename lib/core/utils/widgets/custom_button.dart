@@ -7,11 +7,13 @@ import 'txt_style.dart';
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
+  final Color color;
   final int width;
   const CustomButton({
     required this.text,
     required this.onTap,
     this.width = 382,
+    this.color = primary,
     super.key,
   });
 
@@ -26,7 +28,7 @@ class CustomButton extends StatelessWidget {
           width: width.w,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.r),
-            color: primary,
+            color: color,
           ),
           child: Center(
             child: TxtStyle(

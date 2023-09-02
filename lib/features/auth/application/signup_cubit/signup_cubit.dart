@@ -20,7 +20,7 @@ class SignupCubit extends Cubit<SignupStates> {
   TextEditingController userNameController = TextEditingController();
   TextEditingController confirmPassController = TextEditingController();
   GlobalKey<FormState> signupFormKey = GlobalKey<FormState>();
-
+  bool emailVerifed = false;
 //methods
 
   void signuprUser(
@@ -31,6 +31,13 @@ class SignupCubit extends Cubit<SignupStates> {
     firebaseAuth
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
+      value.user!.sendEmailVerification();
+      if (value.user!.emailVerified == true) {
+        emailVerifed = true;
+      } else {
+        emailVerifed = false;
+      }
+      emit(EmailVerifiedState());
       final UserModel userModel = UserModel(
           userName: name,
           userId: value.user!.uid,
@@ -54,7 +61,8 @@ class SignupCubit extends Cubit<SignupStates> {
       emit(SignupErrorState(error.toString()));
     });
   }
-    IconData suffixIcon = Icons.visibility_outlined;
+
+  IconData suffixIcon = Icons.visibility_outlined;
   bool isPassword = true;
   void changePassVisibilty() {
     isPassword = !isPassword;

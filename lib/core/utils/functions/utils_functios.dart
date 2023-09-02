@@ -31,6 +31,14 @@ Future storeDataLocally(UserModel userModel) async {
   setSignin();
 }
 
+Future<UserModel> getDataFromSharedPref() async {
+  final SharedPreferences sharedPreferences =
+      await SharedPreferences.getInstance();
+  sharedPreferences.reload();
+  String data = sharedPreferences.getString("user_model") ?? '';
+  final userModel = UserModel.fromMap(jsonDecode(data));
+  return userModel;
+}
 
 Future setSignin() async {
   final SharedPreferences sharedPreferences =

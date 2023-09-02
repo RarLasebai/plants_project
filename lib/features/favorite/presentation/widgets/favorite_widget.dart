@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:plants_project/core/utils/colors/colors.dart';
 import 'package:plants_project/core/utils/widgets/txt_style.dart';
+import 'package:plants_project/features/home/data/model/plant_model.dart';
 
 class FavoriteWidget extends StatelessWidget {
-  const FavoriteWidget({super.key});
+  final PlantModel plant;
+  const FavoriteWidget({super.key, required this.plant});
 
   @override
   Widget build(BuildContext context) {
@@ -20,21 +22,20 @@ class FavoriteWidget extends StatelessWidget {
                   width: 80.w,
                 ),
                 Positioned(
-                    left: 18,
-                    top: 6,
-                    child: Image.asset("assets/images/plant2.png")),
+                    child: Image.network(plant.plantImage,
+                        height: 90.h, width: 90.w)),
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 12, right: 87),
+            Padding(
+              padding: const EdgeInsets.only(left: 12, right: 40),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TxtStyle("Mini Cacti", 20, fontWeight: FontWeight.bold),
-                    TxtStyle("Description", 14, color: secondaryFont)
+                    TxtStyle(plant.plantName, 20, fontWeight: FontWeight.bold),
+                    TxtStyle(plant.plantDesc, 14, color: secondaryFont)
                   ]),
             ),
-            const TxtStyle("20.22", 16, fontWeight: FontWeight.bold),
+            TxtStyle("${plant.plantPrice}", 16, fontWeight: FontWeight.bold),
           ],
         ),
         const Padding(

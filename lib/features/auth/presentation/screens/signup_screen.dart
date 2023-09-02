@@ -4,13 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:plants_project/core/utils/colors/colors.dart';
 import 'package:plants_project/core/utils/functions/utils_functios.dart';
-import 'package:plants_project/core/utils/screens/home_layout.dart';
 import 'package:plants_project/core/utils/widgets/custom_button.dart';
 import 'package:plants_project/core/utils/widgets/loading_widget.dart';
 import 'package:plants_project/core/utils/widgets/txt_style.dart';
 import 'package:plants_project/features/auth/application/signup_cubit/signup_cubit.dart';
 import 'package:plants_project/features/auth/application/signup_cubit/signup_states.dart';
 import 'package:plants_project/features/auth/presentation/screens/login_screen.dart';
+import 'package:plants_project/features/auth/presentation/screens/verify_email_screen.dart';
 import 'package:plants_project/features/auth/presentation/widgets/auth_text_field.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -22,13 +22,13 @@ class SignupScreen extends StatelessWidget {
       create: (context) => SignupCubit(),
       child:
           BlocConsumer<SignupCubit, SignupStates>(listener: (context, state) {
-        if (state is SignupSuccessState) {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const HomeLayout()),
-              (Route<dynamic> route) => false);
-        } else if (state is SignupErrorState) {
+        // if (state is SignupSuccessState) {
+        //   Navigator.pushAndRemoveUntil(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => const HomeLayout()),
+        //       (Route<dynamic> route) => false);
+        // }
+        if (state is SignupErrorState) {
           showToast(context, "Something went wrong Try again later!");
         }
       }, builder: (context, state) {
@@ -117,6 +117,15 @@ class SignupScreen extends StatelessWidget {
                                       name:
                                           signupCubit.userNameController.text);
                                 }
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            BlocProvider.value(
+                                              value: signupCubit,
+                                              child: VerifyEmailScreen(
+                                                  signupCubit),
+                                            )));
                               });
                         }),
                     SizedBox(height: 8.h),

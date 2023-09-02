@@ -10,7 +10,10 @@ class SignupSuccessState extends SignupStates {
   final UserModel userModel;
   SignupSuccessState(this.userModel);
 }
-class SignupChangePassVisibiltyState extends SignupStates{}
+
+class SignupChangePassVisibiltyState extends SignupStates {}
+
+class EmailVerifiedState extends SignupStates {}
 
 class SignupErrorState implements SignupStates {
   final String message;

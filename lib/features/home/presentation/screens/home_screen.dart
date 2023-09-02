@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:plants_project/core/utils/functions/utils_functios.dart';
 import 'package:plants_project/core/utils/widgets/loading_widget.dart';
 import 'package:plants_project/core/utils/widgets/txt_style.dart';
 import 'package:plants_project/features/auth/application/auth_cubit/auth_cubit.dart';
@@ -129,19 +128,25 @@ class HomeScreen extends StatelessWidget {
                                                                 userId: user
                                                                     .userId)));
                                               },
-                                              child: PlantWidget(plant: plant)))
+                                              child: BlocProvider.value(
+                                                value: homeCubit,
+                                                child: PlantWidget(
+                                                  plant: plant,
+                                                  homeCubit: homeCubit,
+                                                ),
+                                              )))
                                           .toList(),
                                     ],
                                   ),
                                 );
                               } else {
-                                return const Center(
-                                  child: TxtStyle("There is no data yet", 30,
-                                      fontWeight: FontWeight.bold),
-                                );
+                                return const LoadingWidget();
+                                //  const Center(
+                                //   child: TxtStyle("There is no data yet", 30,
+                                //       fontWeight: FontWeight.bold),
+                                // );
                               }
                             }),
-                         
                           ],
                         );
                       }),
