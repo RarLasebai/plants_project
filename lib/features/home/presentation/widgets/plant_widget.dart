@@ -40,7 +40,8 @@ class PlantWidget extends StatelessWidget {
                         color: softBlue,
                         borderRadius: BorderRadius.circular(23.r),
                       ),
-                      child: Image.network(plant.plantImage)),
+                      child: Image.network(plant.plantImage,
+                          height: 20.h, width: 20.w)),
                   BlocConsumer<HomeCubit, HomeStates>(
                       listener: (context, state) {},
                       builder: (context, state) {

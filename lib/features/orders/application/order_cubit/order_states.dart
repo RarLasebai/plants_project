@@ -7,6 +7,8 @@ class OrderInitialState extends OrderStates {}
 
 class OrderLoadingState extends OrderStates {}
 
+class OrderStateChanged extends OrderStates{}
+
 class OrdersLoadedState extends OrderStates {
   final List<OrderModel> ordersModel;
   OrdersLoadedState(this.ordersModel);

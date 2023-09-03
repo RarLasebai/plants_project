@@ -41,7 +41,8 @@ class AddToCartCubit extends Cubit<AddToCartStates> {
           userId: userId,
           total: total,
           plantImage: plant.plantImage,
-          plantName: plant.plantName);
+          plantName: plant.plantName,
+          points: plant.points);
       firestore
           .collection("cartItems")
           .doc()

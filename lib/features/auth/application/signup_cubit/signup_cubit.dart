@@ -42,6 +42,7 @@ class SignupCubit extends Cubit<SignupStates> {
           userName: name,
           userId: value.user!.uid,
           userPassword: password,
+          userPoints: "0",
           userEmail: email);
       createUser(userModel: userModel);
     }).catchError((error) {

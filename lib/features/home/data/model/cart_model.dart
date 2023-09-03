@@ -6,14 +6,15 @@ class CartItemModel {
   final int quantity;
   final int price;
   final int total;
+  final int points;
   const CartItemModel(
-      {
-      required this.plantId,
+      {required this.plantId,
       required this.price,
       required this.quantity,
       required this.userId,
-      required this.total
-      ,required this.plantImage,
+      required this.total,
+      required this.plantImage,
+      required this.points,
       required this.plantName});
 
   //from map
@@ -26,6 +27,7 @@ class CartItemModel {
       userId: map['userId'] ?? "",
       plantImage: map['plantImage'] ?? "",
       plantName: map['plantName'] ?? "",
+      points: map['points'] ?? "",
     );
   }
 
@@ -37,8 +39,9 @@ class CartItemModel {
       "total": total,
       "quantity": quantity,
       "userId": userId,
-      "plantImage":plantImage,
-      "plantName":plantName,
+      "plantImage": plantImage,
+      "plantName": plantName,
+      "points": points
     };
   }
 }

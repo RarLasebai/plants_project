@@ -27,14 +27,16 @@ class FavoriteWidget extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 12, right: 40),
+              padding: const EdgeInsets.only(left: 12),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TxtStyle(plant.plantName, 20, fontWeight: FontWeight.bold),
-                    TxtStyle(plant.plantDesc, 14, color: secondaryFont)
+                    TxtStyle(plant.plantDesc, 14,
+                        color: secondaryFont, longText: true)
                   ]),
             ),
+            const Spacer(),
             TxtStyle("${plant.plantPrice}", 16, fontWeight: FontWeight.bold),
           ],
         ),

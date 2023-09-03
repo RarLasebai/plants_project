@@ -28,6 +28,7 @@ class OrdersScreen extends StatelessWidget {
             child: BlocConsumer<OrderCubit, OrderStates>(
                 listener: (context, state) {},
                 builder: (context, orderState) {
+                  OrderCubit orderCubit = OrderCubit.get(context);
                   if (orderState is OrdersLoadedState) {
                     if (orderState.ordersModel.isEmpty) {
                       return Center(
@@ -55,8 +56,11 @@ class OrdersScreen extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  OrderDetailsScreen(
-                                                      orderModel: order)));
+                                                  BlocProvider.value(
+                                                    value: orderCubit,
+                                                    child: OrderDetailsScreen(
+                                                        orderModel: order, orderCubit: orderCubit),
+                                                  )));
                                     },
                                     child: OrderWidget(orderModel: order)))
                           ],

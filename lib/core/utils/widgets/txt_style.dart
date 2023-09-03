@@ -23,6 +23,7 @@ class TxtStyle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
+      
         longText == false
             ? _text.length > 30
                 ? '${_text.substring(0, 30)}...'

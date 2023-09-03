@@ -29,7 +29,7 @@ class ItemWidget extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 12, right: 70),
+              padding: const EdgeInsets.only(left: 12),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -39,6 +39,7 @@ class ItemWidget extends StatelessWidget {
                         color: secondaryFont)
                   ]),
             ),
+            const Spacer(),
             Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 20),

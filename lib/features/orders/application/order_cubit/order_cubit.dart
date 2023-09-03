@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:plants_project/core/utils/functions/utils_functios.dart';
+import 'package:plants_project/features/auth/data/model/user_model.dart';
 import 'package:plants_project/features/home/data/model/cart_model.dart';
 import 'package:plants_project/features/orders/application/order_cubit/order_states.dart';
 import 'package:plants_project/features/orders/data/models/order_model.dart';
@@ -27,8 +29,11 @@ class OrderCubit extends Cubit<OrderStates> {
     for (var element in cartItems) {
       element.toMap();
     }
+    final orderDoc = firestore.collection('orders').doc();
+
     String date = "${today.day}-${today.month}-${today.year}";
     OrderModel orderModel = OrderModel(
+        orderId: orderDoc.id,
         date: date,
         userId: cartItems.first.userId,
         deliveryCost: "0.04",
@@ -41,7 +46,7 @@ class OrderCubit extends Cubit<OrderStates> {
     try {
       firestore
           .collection("orders")
-          .doc()
+          .doc(orderDoc.id)
           .set(orderModel.toMap())
           .then((value) async {
         emit(PlaceOrderSuccessState());
@@ -80,5 +85,23 @@ class OrderCubit extends Cubit<OrderStates> {
     } catch (e) {
       emit(OrderErrorState(e.toString()));
     }
+  }
+
+  confirmOrder(OrderModel orderModel) async {
+    UserModel user = await getDataFromSharedPref();
+    int userPoints = int.parse(user.userPoints);
+    emit(OrderLoadingState());
+    await firestore.collection("orders").doc(orderModel.orderId).update({
+      "orderStatus": "confirmed",
+    });
+    for (var item in orderModel.items) {
+      userPoints = userPoints + item.points;
+    }
+    await firestore.collection("users").doc(orderModel.userId).update({
+      "userPoints": userPoints.toString(),
+    });
+    user.userPoints = userPoints.toString();
+    storeDataLocally(user);
+    emit(OrderStateChanged());
   }
 }

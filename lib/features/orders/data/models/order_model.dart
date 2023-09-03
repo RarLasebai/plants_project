@@ -1,6 +1,7 @@
 import 'package:plants_project/features/home/data/model/cart_model.dart';
 
 class OrderModel {
+  final String orderId;
   final String orderNo;
   final String userId;
   final String orderTotalCost;
@@ -11,7 +12,10 @@ class OrderModel {
   final List<CartItemModel> items;
   final String orderStatus;
   const OrderModel(
-      {required this.date,
+    
+      {
+        required this.orderId,
+        required this.date,
       required this.userId,
       required this.deliveryCost,
       required this.items,
@@ -24,6 +28,7 @@ class OrderModel {
   //from map
   factory OrderModel.fromMap(Map<String, dynamic> map) {
     return OrderModel(
+      orderId:  map["orderId"] ?? "",
       date: map["date"] ?? "",
       userId: map["userId"] ?? "",
       deliveryCost: map["deliveryCost"] ?? "",
@@ -44,6 +49,7 @@ class OrderModel {
   //to map
   Map<String, dynamic> toMap() {
     return {
+      "orderId" : orderId,
       "date": date,
       "userId": userId,
       "deliveryCost": deliveryCost,

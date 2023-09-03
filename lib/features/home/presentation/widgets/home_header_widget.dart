@@ -37,10 +37,12 @@ class HomeHeaderWidget extends StatelessWidget {
                     )
                   ])),
         GestureDetector(
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => CartScreen(user: userModel!))),
+          onTap: isMain
+              ? () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CartScreen(user: userModel!)))
+              : () {},
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
             decoration: BoxDecoration(

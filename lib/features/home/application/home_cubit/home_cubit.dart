@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:plants_project/core/utils/functions/utils_functios.dart';
 import 'package:plants_project/features/home/data/model/plant_model.dart';
 
@@ -42,13 +43,32 @@ class HomeCubit extends Cubit<HomeStates> {
           plants.add(plantModel);
           return plants;
         }).toList();
-        emit(PlantsLoadedState(plants));
+
+        emit(PlantsLoadedState(await organizeLocation(plants)));
       } else {
         emit(HomeErrorState("Something went wrong when getting the plants!"));
       }
     } catch (e) {
       emit(HomeErrorState(e.toString()));
     }
+  }
+
+  Future<List<PlantModel>> organizeLocation(List<PlantModel> plantList) async {
+    UserModel user = await getDataFromSharedPref();
+    List<String> substrings = user.userLocation.split(",");
+    final double userlat = double.parse(substrings[0].toString());
+    final double userlong = double.parse(substrings[1]);
+
+    for (var plant in plantList) {
+      List<String> substrings = plant.plantLocation.split(",");
+      final double lat = double.parse(substrings[0]);
+      final double long = double.parse(substrings[1]);
+      final distance = Geolocator.distanceBetween(userlat, userlong, lat, long);
+      plant.distance = distance.toInt();
+    }
+
+    plantList.sort((a, b) => a.distance.compareTo(b.distance));
+    return plantList;
   }
 
   Future addToFav(String plantId, String cat) async {
@@ -76,7 +96,7 @@ class HomeCubit extends Cubit<HomeStates> {
 
         emit(AddPlantToFavSuccessState());
       }
-              getPlants(cat);
+      getPlants(cat);
 
       QuerySnapshot query = await firestore
           .collection("users")
